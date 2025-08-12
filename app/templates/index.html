@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Gmail Agent</title>
+</head>
+<body>
+    <h1>Ask the Gmail Agent</h1>
+    <form method="post">
+        <textarea name="user_input" rows="4" cols="50" placeholder="Ask something..."></textarea>
+        <br><br>
+        <button type="submit">Send</button>
+    </form>
+
+    {% if response %}
+        <h3>Response:</h3>
+        <pre>{{ response | tojson(indent=2) }}</pre>
+    {% endif %}
+</body>
+</html>
