@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "node",
+      "args": [
+        "C:/Users/dell/Documents/GitHub/gmail-mcp/dist/index.js"
+      ]
+      
+    }
+  }
+}

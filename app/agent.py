@@ -1,54 +1,68 @@
-import json, mcp, yaml
-from mcp.client.streamable_http import streamablehttp_client
-from openai import OpenAI
+import json, sys, time, mcp
+import yaml
 import logging
-from logging import getLogger
-from config import openai_api_key, smithery_api_key, smithery_profile
+from openai import OpenAI
+from config import openai_api_key
+from mcp.client.stdio import StdioServerParameters, stdio_client
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message)s")
-logging.getLogger("httpx").setLevel(logging.WARNING)
 
 client = OpenAI(api_key=openai_api_key)
 
-url = f"https://server.smithery.ai/@shinzo-labs/gmail-mcp/mcp?api_key={smithery_api_key}&profile={smithery_profile}"
+# Load LLM prompts from YAML
 def load_prompts():
     with open("prompts.yaml", "r") as f:
         return yaml.safe_load(f)
+
 PROMPTS = load_prompts()
 
+# Load MCP config.json
+with open("config.json", "r") as f:
+    CONFIG = json.load(f)
+
 async def handle_user_query(user_input: str):
-    async with streamablehttp_client(url) as (read_stream, write_stream, _):
-        async with mcp.ClientSession(read_stream, write_stream) as session:
-            await session.initialize()
+    gmail_server_cfg = CONFIG["mcpServers"]["gmail"]
+    server_params = StdioServerParameters(
+        command=gmail_server_cfg["command"],
+        args=gmail_server_cfg["args"],
+    )
+    try:
+        async with stdio_client(server_params) as (read_stream, write_stream):
+            async with mcp.ClientSession(read_stream, write_stream) as session:
+                await session.initialize()
+                tools_info = await session.list_tools()
+                tool_names = [tool.name for tool in tools_info.tools]
+                logger.info(f"Available tools: {tool_names}")
 
-            # Step 1: Get available tools
-            tools_info = await session.list_tools()
-            tool_names = [tool.name for tool in tools_info.tools]
+                tool_name, tool_args = choose_tool_with_llm(user_input, tool_names)
+                logger.info(f"Chosen tool: {tool_name} with args: {tool_args}")
 
-            # Step 2: Ask LLM which tool to use
-            tool_name, tool_args = choose_tool_with_llm(user_input, tool_names)
-            logger.info(f"Chosen tool: {tool_name} with args: {tool_args}")
+                if not tool_name:
+                    return {"error": "No suitable tool found."}
 
-            if not tool_name:
-                return {"error": "No suitable tool found."}
-
-            # Step 3: Call the main tool
-            try:
+                start = time.time()
                 result = await session.call_tool(tool_name, arguments=tool_args)
-                parsed_result = json.loads(result.content[0].text)
+                logger.info(f"Time after call_tool: {time.time() - start:.2f}s")
 
-                # Step 4: If list_messages, chain into get_message for each ID
+                parsed_result = json.loads(result.content[0].text)
+                logger.info(f"parsed result: {parsed_result}")
+
                 if tool_name == "list_messages" and "messages" in parsed_result:
                     detailed_messages = []
                     for msg in parsed_result["messages"]:
                         msg_id = msg.get("id")
                         if msg_id:
                             try:
+                                logger.info(f"Fetching message {msg_id}")
                                 msg_result = await session.call_tool(
                                     "get_message",
                                     arguments={"id": msg_id}
                                 )
-                                detailed_messages.append(json.loads(msg_result.content[0].text))
+                                logger.info(f"Message {msg_id} fetched")
+                                detailed_messages.append(
+                                    json.loads(msg_result.content[0].text)
+                                )
                             except Exception as e:
                                 logger.error(f"Failed to fetch message {msg_id}: {e}")
                     
@@ -57,21 +71,21 @@ async def handle_user_query(user_input: str):
                         "result": detailed_messages
                     }
 
-                return {
-                    "tool": tool_name,
-                    "result": parsed_result
-                }
+                logger.info(f"tool: {tool_name}, parsed result: {parsed_result} just before returning!")
+                return {"tool": tool_name, "result": parsed_result}
 
-            except Exception as e:
-                return {"error": str(e)}
+    except Exception as e:
+        logger.error(f"Error in MCP session: {e}")
+        return {"error": str(e)}
+    finally:
+        logger.info("Session closed successfully")
 def choose_tool_with_llm(user_input: str, tool_names: list):
-    """
-    Uses OpenAI to pick the right tool and arguments from a list.
-    """
-    prompt = PROMPTS["select_tool"].format(tool_list=tool_names, user_input=user_input)
+    prompt = PROMPTS["select_tool"].format(
+        tool_list=tool_names, user_input=user_input
+    )
 
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4.1-mini",
         messages=[
             {"role": "system", "content": "Select the correct tool and arguments in JSON format."},
             {"role": "user", "content": prompt}

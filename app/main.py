@@ -16,8 +16,18 @@ async def home(request: Request):
 
 @app.post("/", response_class=HTMLResponse)
 async def query(request: Request, user_input: str = Form(...)):
+    print("POST request received with input:", user_input)
     result = await handle_user_query(user_input)
-    return templates.TemplateResponse("index.html", {"request": request, "response": result})
-
+    print("Got result:", result)
+    
+    # TEST: Return a simple HTML response (bypass Jinja2)
+    return HTMLResponse(content=f"""
+        <html>
+            <body>
+                <h1>Test Response</h1>
+                <pre>{result}</pre>
+            </body>
+        </html>
+    """)
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
