@@ -1,2 +1,3 @@
 .env
 /app/__pycache__
+app/MCP_CONFIG_DIR/credentials.json

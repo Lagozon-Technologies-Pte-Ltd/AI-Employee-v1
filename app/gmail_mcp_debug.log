@@ -675,3 +675,364 @@
     }
   ]
 }
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r247261143045479231\",\"message\":{\"id\":\"198e51868089c03f\",\"threadId\":\"198e51868089c03f\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r-211728864065613383\",\"message\":{\"id\":\"198e51ecf6002590\",\"threadId\":\"198e51ecf6002590\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r3210386287946773633\",\"message\":{\"id\":\"198e52502446f4fe\",\"threadId\":\"198e52502446f4fe\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r8297606702852273184\",\"message\":{\"id\":\"198e52c7a1dfc5f2\",\"threadId\":\"198e52c7a1dfc5f2\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r-7811894540557645765\",\"message\":{\"id\":\"198e53333878ff3f\",\"threadId\":\"198e53333878ff3f\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r-3982353445705000191\",\"message\":{\"id\":\"198e5357d6e76463\",\"threadId\":\"198e5357d6e76463\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r-2903669255905568311\",\"message\":{\"id\":\"198e535fa9cd908f\",\"threadId\":\"198e535fa9cd908f\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r7105960866527589263\",\"message\":{\"id\":\"198e53c342bc8dc3\",\"threadId\":\"198e53c342bc8dc3\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r7852615855679469797\",\"message\":{\"id\":\"198e53e3072d0eeb\",\"threadId\":\"198e53e3072d0eeb\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Tool 'list_messages' invoked with params: {"maxResults":1,"q":"is:unread"}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"messages\":[{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\"}],\"nextPageToken\":\"13542416879354053910\",\"resultSizeEstimate\":201}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"198e4fca8957e350\",\"threadId\":\"198e4fca8957e350\",\"labelIds\":[\"UNREAD\",\"CATEGORY_PERSONAL\",\"INBOX\"],\"snippet\":\"Happy new year\",\"payload\":{\"partId\":\"\",\"mimeType\":\"multipart/alternative\",\"filename\":\"\",\"headers\":[{\"name\":\"From\",\"value\":\"Rohit Verma <rohitpawanverma9@gmail.com>\"},{\"name\":\"Date\",\"value\":\"Tue, 26 Aug 2025 11:36:48 +0530\"},{\"name\":\"Message-ID\",\"value\":\"<CAB+-=jQrfjqdU-BxED=koFARpbP00CUdCLENqjmkjcG5FqtYzQ@mail.gmail.com>\"},{\"name\":\"Subject\",\"value\":\"Congrats\"},{\"name\":\"To\",\"value\":\"Rohit Verma <rohit.verma@lagozon.com>\"}],\"body\":{\"size\":0},\"parts\":[{\"partId\":\"0\",\"mimeType\":\"text/plain\",\"filename\":\"\",\"headers\":[],\"body\":{\"data\":\"Happy new year\\r\\n\",\"size\":24}},{\"partId\":\"1\",\"mimeType\":\"text/html\",\"filename\":\"\",\"headers\":[],\"body\":{\"size\":16,\"data\":\"SGFwcHkgbmV3IHllYXINCg==\"}}]},\"sizeEstimate\":5657,\"historyId\":\"305382\",\"internalDate\":\"1756188408000\"}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r-3427983534611969052\",\"message\":{\"id\":\"198e5920fdcae374\",\"threadId\":\"198e5920fdcae374\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r6749412217595099378\",\"message\":{\"id\":\"198e5947d68769cb\",\"threadId\":\"198e5947d68769cb\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r2353557504230440491\",\"message\":{\"id\":\"198e59754875b240\",\"threadId\":\"198e59754875b240\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"id\":\"r4589844855995853940\",\"message\":{\"id\":\"198e59c89926aa33\",\"threadId\":\"198e59c89926aa33\",\"labelIds\":[\"DRAFT\"]}}"
+    }
+  ]
+}

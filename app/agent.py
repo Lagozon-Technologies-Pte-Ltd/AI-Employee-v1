@@ -68,6 +68,7 @@ async def handle_user_query(user_input: str):
 
                         # Update context store with returned data
                         # Update context store with returned data
+                        # Update context store with returned data
                         if isinstance(parsed_result, dict):
                             # Store message IDs with meaningful keys
                             if tool_name == "list_messages" and "messages" in parsed_result:
@@ -75,32 +76,28 @@ async def handle_user_query(user_input: str):
                                 for i, message in enumerate(messages):
                                     context_store[f"message_{i+1}_id"] = message.get("id")
                             
-                            # Store individual message data and extract headers - FIXED
+                            # Store individual message data and extract headers
                             elif tool_name == "get_message" and "id" in parsed_result:
                                 message_id = parsed_result.get("id")
                                 context_store[f"message_data"] = parsed_result
-                                
-                                # Extract and store headers with simplified naming for LLM
+                                context_store[f"message_{message_id}_data"] = parsed_result  # Also store by ID
+
+                                # Extract headers (lowercase keys)
                                 if 'payload' in parsed_result and 'headers' in parsed_result['payload']:
                                     headers = parsed_result['payload']['headers']
                                     header_dict = {header['name'].lower(): header['value'] for header in headers}
-                                    
-                                    # Store with LLM-expected naming pattern
-                                    context_store[f"message_1_payload_headers_from"] = header_dict.get('from', '')
-                                    context_store[f"message_1_payload_headers_to"] = header_dict.get('to', '')
-                                    context_store[f"message_1_payload_headers_subject"] = header_dict.get('subject', '')
-                                    
-                                    # Also store simplified versions
-                                    context_store[f"message_from"] = header_dict.get('from', '')
-                                    context_store[f"message_to"] = header_dict.get('to', '')
-                                    context_store[f"message_subject"] = header_dict.get('subject', '')
-                                
-                                # Store Base64 encoded content for create_draft
-                                if "body" in parsed_result["payload"]:
-                                    context_store["body"] = parsed_result["payload"]["body"].get("data", "")
 
-                            context_store.update(parsed_result)
-                        # Add successful result to responses
+                                    # Store headers with consistent naming
+                                    context_store["message_from"] = header_dict.get('from', '')
+                                    context_store["message_to"] = header_dict.get('to', '')
+                                    context_store["message_subject"] = header_dict.get('subject', '')
+                                
+                                # Store snippet (plain text short summary provided by Gmail)
+                                context_store["snippet"] = parsed_result.get("snippet", "")
+                                
+
+                            # Always update context with the full result
+                            context_store.update(parsed_result)                        # Add successful result to responses
                         results.append({
                             "tool": tool_name,
                             "response": parsed_result
@@ -129,6 +126,63 @@ async def handle_user_query(user_input: str):
     finally:
         logger.info("Session closed successfully")
 
+def generate_reply_subject_body(message_from: str, message_subject: str, snippet: str):
+    """
+    Ask the LLM to compose a reply subject and body based on original message headers/snippet.
+    Returns a dict: {"subject": "...", "body": "..."}.
+    Falls back to simple defaults on error.
+    """
+    try:
+        # Compose the instruction for the LLM
+        instruction = (
+            "You are a professional email assistant. Read the original message below and "
+            "compose a reply. Output ONLY valid JSON with exactly two keys: "
+            '"subject" and "body". Do not add any explanation or extra text.\n\n'
+            "Original message headers:\n"
+            f"From: {message_from}\n"
+            f"Subject: {message_subject}\n\n"
+            "Message snippet:\n"
+            f"{snippet}\n\n"
+            "Requirements:\n"
+            "- Subject: short, appropriate, prefer 'Re: <original>' unless a clearer subject is better.\n"
+            "- Body: plain text, polite, concise (approx 2-5 short sentences). Sign-off optional.\n"
+            "- Return JSON only, e.g. {\"subject\": \"...\", \"body\": \"...\"}.\n"
+        )
+
+        response = client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {"role": "system", "content": "You are an assistant that composes email replies in JSON."},
+                {"role": "user", "content": instruction}
+            ],
+            temperature=0.2
+        )
+
+        raw = response.choices[0].message.content.strip()
+
+        # Extract the first JSON object found in the LLM output
+        import re
+        m = re.search(r"\{[\s\S]*\}", raw)
+        if not m:
+            raise ValueError("No JSON found in LLM output")
+
+        parsed = json.loads(m.group(0))
+        subject = parsed.get("subject", "").strip()
+        body = parsed.get("body", "").strip()
+
+        # Safety / fallback: ensure non-empty
+        if not subject:
+            subject = f"Re: {message_subject}" if message_subject else "Re:"
+        if not body:
+            body = "Thanks for your message. I'll get back to you shortly."
+
+        return {"subject": subject, "body": body}
+    except Exception as e:
+        logger.error(f"generate_reply_subject_body failed: {e}")
+        # fallback defaults
+        fallback_subject = f"Re: {message_subject}" if message_subject else "Re:"
+        fallback_body = "Thanks for your message. I'll get back to you shortly."
+        return {"subject": fallback_subject, "body": fallback_body}
 
 def resolve_placeholders(value, context_store):
     """Recursively resolve placeholders from context_store in strings, lists, and dicts."""
@@ -164,26 +218,47 @@ def resolve_placeholders(value, context_store):
     elif isinstance(value, dict):
         return {k: resolve_placeholders(v, context_store) for k, v in value.items()}
     return value
-def prepare_tool_args(tool_name,tool_schema, user_args, context_store):
+def prepare_tool_args(tool_name, tool_schema, user_args, context_store):
     """
     Auto-populates missing required args using values from context_store.
+    For create_draft, subject & body are generated by LLM (based on snippet).
     """
-    # Get required arguments from schema
     schema_args = tool_schema.get("parameters", {}).get("properties", {})
     required_args = tool_schema.get("parameters", {}).get("required", [])
-    
-    # First pass: resolve all placeholders recursively
+
+    # First resolve any placeholders
     final_args = resolve_placeholders(user_args.copy(), context_store)
-    
-    # Special handling for create_draft tool
-    # Auto-fill required args if still missing
-    for arg_name in required_args:
-        if arg_name not in final_args:
-            # Try to find the value in context
-            for key in context_store.keys():
-                if key.lower() == arg_name.lower() or key.endswith(f'_{arg_name}'):
-                    final_args[arg_name] = context_store[key]
-                    break
+
+    # Special handling for create_draft
+    if tool_name == "create_draft":
+        # If subject/body already provided by LLM plan, just keep them
+        if "subject" in final_args and "body" in final_args:
+            return final_args  
+
+        # Otherwise, try to generate based on context (for replies)
+        message_data = context_store.get("message_data", {})
+        snippet = context_store.get("snippet", "")
+
+        if message_data:  # <-- Only for replies
+            from_address, subject = "", ""
+            if 'payload' in message_data and 'headers' in message_data['payload']:
+                headers = message_data['payload']['headers']
+                header_dict = {header['name'].lower(): header['value'] for header in headers}
+                from_address = header_dict.get('from', '')
+                subject = header_dict.get('subject', '')
+
+            reply = generate_reply_subject_body(from_address, subject, snippet)
+            final_args["subject"] = reply["subject"]
+            final_args["body"] = reply["body"]
+
+    else:
+        # Auto-fill required args for other tools
+        for arg_name in required_args:
+            if arg_name not in final_args:
+                for key in context_store.keys():
+                    if key.lower() == arg_name.lower() or key.endswith(f'_{arg_name}'):
+                        final_args[arg_name] = context_store[key]
+                        break
 
     logger.info(f"Prepared tool args after replacement: {final_args}")
     return final_args

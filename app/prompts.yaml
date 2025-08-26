@@ -8,7 +8,6 @@ select_tool: |
   IMPORTANT: Use these SIMPLE placeholder names:
   - message_1_id, message_2_id (for message IDs from list_messages)
   - message_from, message_to, message_subject (for header values)
-  - base64_encoded_content_from_message_1 (for raw email content)
 
   Tool list:
   {tool_list}
@@ -35,7 +34,6 @@ select_tool: |
 
   Rules:
   - Use SIMPLE PLACEHOLDERS like shown above
-  - For create_draft, use "base64_encoded_content_from_message_1" for the raw parameter
   - Only return JSON, no explanation
   - Include ALL steps needed to fulfill the request
 
@@ -60,8 +58,8 @@ select_tool: |
       "arguments": {{
         "message": {{
           "to": ["message_from"],
-          "subject": "Re: message_subject",
-          "body": "Thanks for your email, I’ll get back to you shortly."
+          "subject": "auto_generate_subject",
+          "body": "auto_generate_body"
         }}
       }}
     ]
