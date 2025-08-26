@@ -1,0 +1,82 @@
+{
+  "list_messages": {
+    "description": "List messages in the user's mailbox with optional filtering.",
+    "arguments": {
+      "maxResults": { "type": "integer", "optional": true, "description": "Maximum number of messages to return. Accepts values between 1-500" },
+      "pageToken": { "type": "string", "optional": true, "description": "Page token to retrieve a specific page of results" },
+      "q": { "type": "string", "optional": true, "description": "Gmail search query format" },
+      "labelIds": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "Only messages with these label IDs" },
+      "includeSpamTrash": { "type": "boolean", "optional": true, "description": "Include messages from SPAM and TRASH" },
+      "includeBodyHtml": { "type": "boolean", "optional": true, "description": "Whether to include HTML body content in response" }
+    }
+  },
+  "get_message": {
+    "description": "Get a specific message by ID with format options.",
+    "arguments": {
+      "id": { "type": "string", "optional": false, "description": "The ID of the message to retrieve" },
+      "includeBodyHtml": { "type": "boolean", "optional": true, "description": "Whether to include parsed HTML in return" }
+    }
+  },
+  "send_message": {
+    "description": "Send an email message to specified recipients. Supports creating raw MIME messages and replying in threads.",
+    "arguments": {
+      "raw": { "type": "string", "optional": true, "description": "Entire email in base64url RFC 2822 format" },
+      "threadId": { "type": "string", "optional": true, "description": "Thread ID to associate message with" },
+      "to": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "Recipient email addresses" },
+      "cc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "CC recipient email addresses" },
+      "bcc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "BCC recipient email addresses" },
+      "subject": { "type": "string", "optional": true, "description": "Subject of the email" },
+      "body": { "type": "string", "optional": true, "description": "Body of the email" },
+      "includeBodyHtml": { "type": "boolean", "optional": true, "description": "Whether to include parsed HTML in returned body" }
+    }
+  },
+  "delete_message": {
+    "description": "Immediately and permanently delete a message.",
+    "arguments": {
+      "id": { "type": "string", "optional": false, "description": "The ID of the message to delete" }
+    }
+  },
+  "modify_message": {
+    "description": "Modify the labels on a message.",
+    "arguments": {
+      "id": { "type": "string", "optional": false, "description": "The ID of the message to modify" },
+      "addLabelIds": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "Label IDs to add" },
+      "removeLabelIds": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "Label IDs to remove" }
+    }
+  },
+  "create_draft": {
+    "description": "Create a draft email in Gmail. Supports raw MIME messages and thread association.",
+    "arguments": {
+      "raw": { "type": "string", "optional": true, "description": "Email message in base64url RFC 2822 format" },
+      "threadId": { "type": "string", "optional": true, "description": "Associate draft with a thread" },
+      "to": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "Recipient email addresses" },
+      "cc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "CC recipient addresses" },
+      "bcc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "BCC recipient addresses" },
+      "subject": { "type": "string", "optional": true, "description": "Email subject" },
+      "body": { "type": "string", "optional": false, "description": "Email body" },
+      "includeBodyHtml": { "type": "boolean", "optional": true, "description": "Include HTML content" }
+    }
+  },
+  "get_draft": {
+    "description": "Get a specific draft by ID, with optional HTML body parsing.",
+    "arguments": {
+      "id": { "type": "string", "optional": false, "description": "ID of the draft to retrieve" },
+      "includeBodyHtml": { "type": "boolean", "optional": true, "description": "Include HTML body content" }
+    }
+  },
+  "list_drafts": {
+    "description": "List drafts in the user's mailbox, with filtering and optional HTML body parsing.",
+    "arguments": {
+      "maxResults": { "type": "integer", "optional": true, "description": "Maximum drafts to return (1-500)" },
+      "q": { "type": "string", "optional": true, "description": "Gmail search query for filtering" },
+      "includeSpamTrash": { "type": "boolean", "optional": true, "description": "Include drafts from SPAM/TRASH" },
+      "includeBodyHtml": { "type": "boolean", "optional": true, "description": "Include HTML body content" }
+    }
+  },
+  "send_draft": {
+    "description": "Send an existing draft.",
+    "arguments": {
+      "id": { "type": "string", "optional": false, "description": "ID of the draft to send" }
+    }
+  }
+}

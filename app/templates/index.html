@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Gmail Agent</title>
+    <title>Gmail Agent</title>
+    <link rel="stylesheet" href="static/style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
 </head>
 <body>
-    <h1>Ask the Gmail Agent</h1>
-    <form method="post">
-        <textarea name="user_input" rows="4" cols="50" placeholder="Ask something..."></textarea>
-        <br><br>
-        <button type="submit">Send</button>
-    </form>
+    <div class="container">
+        <h1><i class="fas fa-envelope"></i> Ask the Gmail Agent <i class="fas fa-envelope"></i></h1>
 
-    {% if response %}
-        <h3>Response:</h3>
-        <pre>{{ response | tojson(indent=2) }}</pre>
-    {% endif %}
+        <form method="post">
+            <textarea name="user_input" rows="4" placeholder="Ask something...">{{ user_input if user_input else '' }}</textarea>
+            <button type="submit">Send</button>
+        </form>
+
+        {% if response %}
+        <div class="section-title">Response:</div>
+        <div class="bot-response plain-text">
+            {% if bot_response %}
+                <div>{{ bot_response }}</div>
+            {% endif %}
+        </div>
+
+        <div class="section-title">
+            <button id="toggle-raw" type="button">Show Raw Data</button>
+        </div>
+        <div id="raw-data" class="bot-response">
+            <pre><code class="language-json">{{ response|tojson(indent=2) }}</code></pre>
+        </div>
+        {% endif %}
+    </div>
+    <script src="static/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-json.min.js"></script>
 </body>
 </html>
