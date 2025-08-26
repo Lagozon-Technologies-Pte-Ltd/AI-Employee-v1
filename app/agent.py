@@ -24,26 +24,6 @@ with open("config.json", "r") as f:
 with open("tools_schema.json", "r") as f:
     TOOL_FORMATS = json.load(f)
 
-def prepare_email_content(message_data):
-    """Convert message data to proper format for create_draft"""
-    if not isinstance(message_data, dict):
-        return None
-    
-    # Extract relevant parts from the message data
-    subject = message_data.get('subject', 'No Subject')
-    body = message_data.get('body', '')
-    from_email = message_data.get('from', '')
-    to_email = message_data.get('to', '')
-    
-    # Create a simple email format (this is simplified)
-    email_content = f"""From: {from_email}
-To: {to_email}
-Subject: {subject}
-
-{body}"""
-    
-    # Base64 encode
-    return base64.urlsafe_b64encode(email_content.encode()).decode()
 
 async def handle_user_query(user_input: str):
     gmail_server_cfg = CONFIG["mcpServers"]["gmail"]
@@ -116,14 +96,9 @@ async def handle_user_query(user_input: str):
                                     context_store[f"message_subject"] = header_dict.get('subject', '')
                                 
                                 # Store Base64 encoded content for create_draft
-                                if 'raw' in parsed_result:
-                                    context_store[f"base64_encoded_content_from_message_1"] = parsed_result.get('raw', '')
-                                else:
-                                    # Generate Base64 content if not present
-                                    email_content = prepare_email_content(parsed_result)
-                                    if email_content:
-                                        context_store[f"base64_encoded_content_from_message_1"] = email_content
-                            
+                                if "body" in parsed_result["payload"]:
+                                    context_store["body"] = parsed_result["payload"]["body"].get("data", "")
+
                             context_store.update(parsed_result)
                         # Add successful result to responses
                         results.append({
@@ -201,13 +176,6 @@ def prepare_tool_args(tool_name,tool_schema, user_args, context_store):
     final_args = resolve_placeholders(user_args.copy(), context_store)
     
     # Special handling for create_draft tool
-    if tool_name == "create_draft":
-        # Ensure we have raw content
-        if "message" in final_args and "raw" in final_args["message"]:
-            raw_content = final_args["message"]["raw"]
-            if "base64_encoded_content" in raw_content and raw_content in context_store:
-                final_args["message"]["raw"] = context_store[raw_content]
-    
     # Auto-fill required args if still missing
     for arg_name in required_args:
         if arg_name not in final_args:

@@ -5,23 +5,10 @@ select_tool: |
   2. Create a COMPLETE multi-step plan using one or more tools from the list.
   3. Use SIMPLE PLACEHOLDERS that reference outputs from previous steps.
 
-  IMPORTANT: For create_draft, use this EXACT structure:
-  {
-    "tool": "create_draft",
-    "arguments": {
-      "message": {
-        "raw": "base64_encoded_content_from_message_1"
-      }
-    }
-  }
-
-  NOT this incorrect structure:
-  {
-    "tool": "create_draft",
-    "arguments": {
-      "body": "base64_encoded_content_from_message_1"  # WRONG!
-    }
-  }
+  IMPORTANT: Use these SIMPLE placeholder names:
+  - message_1_id, message_2_id (for message IDs from list_messages)
+  - message_from, message_to, message_subject (for header values)
+  - base64_encoded_content_from_message_1 (for raw email content)
 
   Tool list:
   {tool_list}
@@ -69,11 +56,12 @@ select_tool: |
         }}
       }},
       {{
-        "tool": "create_draft",
-        "arguments": {{
-          "message": {{
-            "raw": "base64_encoded_content_from_message_1"
-          }}
+      "tool": "create_draft",
+      "arguments": {{
+        "message": {{
+          "to": ["message_from"],
+          "subject": "Re: message_subject",
+          "body": "Thanks for your email, I’ll get back to you shortly."
         }}
       }}
     ]
