@@ -3,7 +3,25 @@ select_tool: |
   Your job is to:
   1. Understand the user's intent.
   2. Create a COMPLETE multi-step plan using one or more tools from the list.
-  3. Use DYNAMIC PLACEHOLDERS that reference outputs from previous steps.
+  3. Use SIMPLE PLACEHOLDERS that reference outputs from previous steps.
+
+  IMPORTANT: For create_draft, use this EXACT structure:
+  {
+    "tool": "create_draft",
+    "arguments": {
+      "message": {
+        "raw": "base64_encoded_content_from_message_1"
+      }
+    }
+  }
+
+  NOT this incorrect structure:
+  {
+    "tool": "create_draft",
+    "arguments": {
+      "body": "base64_encoded_content_from_message_1"  # WRONG!
+    }
+  }
 
   Tool list:
   {tool_list}
@@ -29,18 +47,18 @@ select_tool: |
   }}
 
   Rules:
-  - Use DYNAMIC REFERENCES like "message_1_id", "message_2_id" for values that will come from previous steps
-  - For create_draft, the "raw" parameter must contain Base64-encoded email content
+  - Use SIMPLE PLACEHOLDERS like shown above
+  - For create_draft, use "base64_encoded_content_from_message_1" for the raw parameter
   - Only return JSON, no explanation
   - Include ALL steps needed to fulfill the request
 
-  Example for saving drafts of unread messages:
+  Example for creating draft from last unread message:
   {{
     "plan": [
       {{
         "tool": "list_messages",
         "arguments": {{
-          "maxResults": 2,
+          "maxResults": 1,
           "q": "is:unread"
         }}
       }},
@@ -55,20 +73,6 @@ select_tool: |
         "arguments": {{
           "message": {{
             "raw": "base64_encoded_content_from_message_1"
-          }}
-        }}
-      }},
-      {{
-        "tool": "get_message",
-        "arguments": {{
-          "id": "message_2_id"
-        }}
-      }},
-      {{
-        "tool": "create_draft",
-        "arguments": {{
-          "message": {{
-            "raw": "base64_encoded_content_from_message_2"
           }}
         }}
       }}

@@ -20,8 +20,6 @@
   "send_message": {
     "description": "Send an email message to specified recipients. Supports creating raw MIME messages and replying in threads.",
     "arguments": {
-      "raw": { "type": "string", "optional": true, "description": "Entire email in base64url RFC 2822 format" },
-      "threadId": { "type": "string", "optional": true, "description": "Thread ID to associate message with" },
       "to": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "Recipient email addresses" },
       "cc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "CC recipient email addresses" },
       "bcc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "BCC recipient email addresses" },
@@ -47,14 +45,11 @@
   "create_draft": {
     "description": "Create a draft email in Gmail. Supports raw MIME messages and thread association.",
     "arguments": {
-      "raw": { "type": "string", "optional": true, "description": "Email message in base64url RFC 2822 format" },
-      "threadId": { "type": "string", "optional": true, "description": "Associate draft with a thread" },
       "to": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "Recipient email addresses" },
       "cc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "CC recipient addresses" },
       "bcc": { "type": "list", "items": { "type": "string" }, "optional": true, "description": "BCC recipient addresses" },
       "subject": { "type": "string", "optional": true, "description": "Email subject" },
-      "body": { "type": "string", "optional": false, "description": "Email body" },
-      "includeBodyHtml": { "type": "boolean", "optional": true, "description": "Include HTML content" }
+      "body": { "type": "string", "optional": false, "description": "Email body" }
     }
   },
   "get_draft": {

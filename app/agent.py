@@ -1,4 +1,4 @@
-import json, sys, time, mcp
+import json, sys, time, mcp,re
 import yaml
 import logging
 import base64
@@ -79,7 +79,7 @@ async def handle_user_query(user_input: str):
 
                     # Auto-fill missing args from context using schema
                     tool_schema = TOOL_FORMATS.get(tool_name, {})
-                    tool_args = prepare_tool_args(tool_schema, tool_args, context_store)
+                    tool_args = prepare_tool_args(tool_name,tool_schema, tool_args, context_store)
 
                     try:
                         logger.info(f"Executing tool: {tool_name} with args: {tool_args}")
@@ -87,36 +87,44 @@ async def handle_user_query(user_input: str):
                         parsed_result = json.loads(result.content[0].text)
 
                         # Update context store with returned data
+                        # Update context store with returned data
                         if isinstance(parsed_result, dict):
                             # Store message IDs with meaningful keys
                             if tool_name == "list_messages" and "messages" in parsed_result:
-                                for i, message in enumerate(parsed_result.get("messages", [])):
+                                messages = parsed_result.get("messages", [])
+                                for i, message in enumerate(messages):
                                     context_store[f"message_{i+1}_id"] = message.get("id")
                             
-                            # Store individual message data and extract headers
+                            # Store individual message data and extract headers - FIXED
                             elif tool_name == "get_message" and "id" in parsed_result:
                                 message_id = parsed_result.get("id")
-                                context_store[f"message_{message_id}_data"] = parsed_result
+                                context_store[f"message_data"] = parsed_result
                                 
-                                # Extract and store headers with consistent naming
+                                # Extract and store headers with simplified naming for LLM
                                 if 'payload' in parsed_result and 'headers' in parsed_result['payload']:
                                     headers = parsed_result['payload']['headers']
                                     header_dict = {header['name'].lower(): header['value'] for header in headers}
                                     
-                                    # Store individual headers for easy access
-                                    context_store[f"message_{message_id}_from"] = header_dict.get('from', '')
-                                    context_store[f"message_{message_id}_to"] = header_dict.get('to', '')
-                                    context_store[f"message_{message_id}_subject"] = header_dict.get('subject', '')
+                                    # Store with LLM-expected naming pattern
+                                    context_store[f"message_1_payload_headers_from"] = header_dict.get('from', '')
+                                    context_store[f"message_1_payload_headers_to"] = header_dict.get('to', '')
+                                    context_store[f"message_1_payload_headers_subject"] = header_dict.get('subject', '')
                                     
-                                    # Also store the full header dict for complex access
-                                    context_store[f"message_{message_id}_headers"] = header_dict
+                                    # Also store simplified versions
+                                    context_store[f"message_from"] = header_dict.get('from', '')
+                                    context_store[f"message_to"] = header_dict.get('to', '')
+                                    context_store[f"message_subject"] = header_dict.get('subject', '')
                                 
-                                # Store snippet
-                                if 'snippet' in parsed_result:
-                                    context_store[f"message_{message_id}_snippet"] = parsed_result.get('snippet', '')
+                                # Store Base64 encoded content for create_draft
+                                if 'raw' in parsed_result:
+                                    context_store[f"base64_encoded_content_from_message_1"] = parsed_result.get('raw', '')
+                                else:
+                                    # Generate Base64 content if not present
+                                    email_content = prepare_email_content(parsed_result)
+                                    if email_content:
+                                        context_store[f"base64_encoded_content_from_message_1"] = email_content
                             
                             context_store.update(parsed_result)
-
                         # Add successful result to responses
                         results.append({
                             "tool": tool_name,
@@ -150,15 +158,28 @@ async def handle_user_query(user_input: str):
 def resolve_placeholders(value, context_store):
     """Recursively resolve placeholders from context_store in strings, lists, and dicts."""
     if isinstance(value, str):
-        # Handle {{placeholder}} format
-        if '{{' in value and '}}' in value:
-            start = value.find('{{')
-            end = value.find('}}')
-            if start != -1 and end != -1 and end > start:
-                placeholder = value[start+2:end].strip()
-                resolved_value = context_store.get(placeholder, value)
-                # Replace only the placeholder part, keep surrounding text
-                return value[:start] + str(resolved_value) + value[end+2:]
+        # Handle complex {{placeholder}} patterns with regex
+        import re
+        placeholders = re.findall(r'{{(.*?)}}', value)
+        if placeholders:
+            resolved_value = value
+            for placeholder in placeholders:
+                placeholder = placeholder.strip()
+                # Try exact match first
+                if placeholder in context_store:
+                    resolved_value = resolved_value.replace(f'{{{{{placeholder}}}}}', str(context_store[placeholder]))
+                else:
+                    # Try to find the best match
+                    found = False
+                    for key in context_store.keys():
+                        if placeholder.lower() in key.lower() or key.lower() in placeholder.lower():
+                            resolved_value = resolved_value.replace(f'{{{{{placeholder}}}}}', str(context_store[key]))
+                            found = True
+                            break
+                    if not found:
+                        # If not found, keep the placeholder
+                        logger.warning(f"Placeholder {placeholder} not found in context")
+            return resolved_value
         # Handle direct context keys
         elif value in context_store:
             return context_store[value]
@@ -168,67 +189,36 @@ def resolve_placeholders(value, context_store):
     elif isinstance(value, dict):
         return {k: resolve_placeholders(v, context_store) for k, v in value.items()}
     return value
-
-
-def prepare_tool_args(tool_schema, user_args, context_store):
+def prepare_tool_args(tool_name,tool_schema, user_args, context_store):
     """
     Auto-populates missing required args using values from context_store.
-    Enhanced to handle email header extraction and better placeholder resolution.
     """
+    # Get required arguments from schema
+    schema_args = tool_schema.get("parameters", {}).get("properties", {})
+    required_args = tool_schema.get("parameters", {}).get("required", [])
+    
     # First pass: resolve all placeholders recursively
     final_args = resolve_placeholders(user_args.copy(), context_store)
     
-    # Special handling for email-related tools
-    for arg_name, arg_value in final_args.items():
-        if isinstance(arg_value, str):
-            # Handle message_id fallback
-            if arg_value.endswith('_id') and arg_value in context_store:
-                final_args[arg_name] = context_store[arg_value]
-            
-            # Handle email header placeholders that weren't resolved
-            elif '{{' in arg_value and '}}' in arg_value:
-                # Extract placeholder name
-                placeholder = arg_value[arg_value.find('{{')+2:arg_value.find('}}')].strip()
-                
-                # Try to find the value in context store
-                if placeholder in context_store:
-                    final_args[arg_name] = context_store[placeholder]
-                else:
-                    # Look for message-specific headers
-                    for key in context_store.keys():
-                        if key.startswith('message_') and placeholder in key:
-                            final_args[arg_name] = context_store[key]
-                            break
-
-    # Additional fallback for common email fields
-    if 'to' in final_args and isinstance(final_args['to'], str) and '{{' in final_args['to']:
-        # Try to extract from address from message data
-        for key in context_store.keys():
-            if key.endswith('_from') and key.startswith('message_'):
-                final_args['to'] = context_store[key]
-                break
-
-    if 'subject' in final_args and isinstance(final_args['subject'], str) and '{{' in final_args['subject']:
-        # Try to extract subject from message data
-        for key in context_store.keys():
-            if key.endswith('_subject') and key.startswith('message_'):
-                final_args['subject'] = context_store[key]
-                break
-
+    # Special handling for create_draft tool
+    if tool_name == "create_draft":
+        # Ensure we have raw content
+        if "message" in final_args and "raw" in final_args["message"]:
+            raw_content = final_args["message"]["raw"]
+            if "base64_encoded_content" in raw_content and raw_content in context_store:
+                final_args["message"]["raw"] = context_store[raw_content]
+    
     # Auto-fill required args if still missing
-    for arg_name, arg_props in schema_args.items():
-        if arg_name not in final_args and arg_props.get("required"):
-            if arg_name in context_store:
-                final_args[arg_name] = context_store[arg_name]
-            else:
-                for key in context_store.keys():
-                    if key.lower() == arg_name.lower():
-                        final_args[arg_name] = context_store[key]
-                        break
+    for arg_name in required_args:
+        if arg_name not in final_args:
+            # Try to find the value in context
+            for key in context_store.keys():
+                if key.lower() == arg_name.lower() or key.endswith(f'_{arg_name}'):
+                    final_args[arg_name] = context_store[key]
+                    break
 
     logger.info(f"Prepared tool args after replacement: {final_args}")
     return final_args
-
 def choose_tool_with_llm(user_input: str, tool_names: list):
     try:
         prompt = PROMPTS["select_tool"].format(
