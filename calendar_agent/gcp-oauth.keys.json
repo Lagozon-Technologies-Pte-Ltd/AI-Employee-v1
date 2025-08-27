@@ -1,0 +1,7 @@
+{
+    "installed": {
+        "client_id": "960447493516-8eav7q75qbfcqjt8f76lt9csu8r69las.apps.googleusercontent.com",
+        "client_secret": "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",
+        "redirect_uris": ["http://localhost:3000/oauth2callback"]
+    }
+}

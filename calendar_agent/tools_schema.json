@@ -1,0 +1,387 @@
+{
+    "calendar": {
+        "list-calendars": {
+            "description": "List all available calendars",
+            "arguments": {}
+        },
+        "list-events": {
+            "description": "List events from one or more calendars",
+            "arguments": {
+                "calendarId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the calendar(s) to list events from. Accepts either a single calendar ID string or an array of calendar IDs (passed as JSON string like [\"cal1\", \"cal2\"])"
+                },
+                "timeMin": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Start time boundary. Preferred: '2024-01-01T00:00:00' (uses timeZone parameter or calendar timezone). Also accepts: '2024-01-01T00:00:00Z' or '2024-01-01T00:00:00-08:00'."
+                },
+                "timeMax": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "End time boundary. Preferred: '2024-01-01T23:59:59' (uses timeZone parameter or calendar timezone). Also accepts: '2024-01-01T23:59:59Z' or '2024-01-01T23:59:59-08:00'."
+                },
+                "timeZone": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Timezone as IANA Time Zone Database name (e.g., America/Los_Angeles). Takes priority over calendar's default timezone. Only used for timezone-naive datetime strings."
+                },
+                "fields": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Optional array of additional event fields to retrieve. Available fields are strictly validated. Default fields (id, summary, start, end, status, htmlLink, location, attendees) are always included."
+                },
+                "privateExtendedProperty": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Filter by private extended properties (key=value). Matches events that have all specified properties."
+                },
+                "sharedExtendedProperty": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Filter by shared extended properties (key=value). Matches events that have all specified properties."
+                }
+            }
+        },
+        "search-events": {
+            "description": "Search for events in a calendar by text query",
+            "arguments": {
+                "calendarId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the calendar (use 'primary' for the main calendar)"
+                },
+                "query": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "Free text search query (searches summary, description, location, attendees, etc.)"
+                },
+                "timeMin": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "Start time boundary. Preferred: '2024-01-01T00:00:00' (uses timeZone parameter or calendar timezone). Also accepts: '2024-01-01T00:00:00Z' or '2024-01-01T00:00:00-08:00'."
+                },
+                "timeMax": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "End time boundary. Preferred: '2024-01-01T23:59:59' (uses timeZone parameter or calendar timezone). Also accepts: '2024-01-01T23:59:59Z' or '2024-01-01T23:59:59-08:00'."
+                },
+                "timeZone": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Timezone as IANA Time Zone Database name (e.g., America/Los_Angeles). Takes priority over calendar's default timezone. Only used for timezone-naive datetime strings."
+                },
+                "fields": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Optional array of additional event fields to retrieve. Available fields are strictly validated. Default fields (id, summary, start, end, status, htmlLink, location, attendees) are always included."
+                },
+                "privateExtendedProperty": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Filter by private extended properties (key=value). Matches events that have all specified properties."
+                },
+                "sharedExtendedProperty": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Filter by shared extended properties (key=value). Matches events that have all specified properties."
+                }
+            }
+        },
+        "get-event": {
+            "description": "Get details of a specific event by ID",
+            "arguments": {
+                "calendarId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the calendar (use 'primary' for the main calendar)"
+                },
+                "eventId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the event to retrieve"
+                },
+                "fields": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Optional array of additional event fields to retrieve. Available fields are strictly validated. Default fields (id, summary, start, end, status, htmlLink, location, attendees) are always included."
+                }
+            }
+        },
+        "list-colors": {
+            "description": "List available color IDs and their meanings for calendar events",
+            "arguments": {}
+        },
+        "create-event": {
+            "description": "Create a new calendar event",
+            "arguments": {
+                "calendarId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the calendar (use 'primary' for the main calendar)"
+                },
+                "eventId": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Optional custom event ID (5-1024 characters, base32hex encoding: lowercase letters a-v and digits 0-9 only). If not provided, Google Calendar will generate one."
+                },
+                "summary": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "Title of the event"
+                },
+                "description": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Description/notes for the event"
+                },
+                "start": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "Event start time: '2024-01-01T10:00:00'"
+                },
+                "end": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "Event end time: '2024-01-01T11:00:00'"
+                },
+                "timeZone": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Timezone as IANA Time Zone Database name (e.g., America/Los_Angeles). Takes priority over calendar's default timezone. Only used for timezone-naive datetime strings."
+                },
+                "location": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Location of the event"
+                },
+                "attendees": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "List of event attendees with their details"
+                },
+                "colorId": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Color ID for the event (use list-colors to see available IDs)"
+                },
+                "reminders": {
+                    "type": "object",
+                    "optional": true,
+                    "description": "Reminder settings for the event"
+                },
+                "recurrence": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Recurrence rules in RFC5545 format (e.g., [RULE:FREQ=WEEKLY;COUNT=5])"
+                },
+                "transparency": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Whether the event blocks time on the calendar. 'opaque' means busy, 'transparent' means free."
+                },
+                "visibility": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Visibility of the event. Use 'public' for public events, 'private' for private events visible to attendees."
+                },
+                "guestsCanInviteOthers": {
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "Whether attendees can invite others to the event. Default is true."
+                },
+                "guestsCanModify": {
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "Whether attendees can modify the event. Default is false."
+                },
+                "guestsCanSeeOtherGuests": {
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "Whether attendees can see the list of other attendees. Default is true."
+                },
+                "anyoneCanAddSelf": {
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "Whether anyone can add themselves to the event. Default is false."
+                },
+                "sendUpdates": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Whether to send notifications about the event creation. 'all' sends to all guests, 'externalOnly' to non-Google Calendar users only, 'none' sends no notifications."
+                },
+                "conferenceData": {
+                    "type": "object",
+                    "optional": true,
+                    "description": "Conference properties for the event. Use createRequest to add a new conference."
+                },
+                "extendedProperties": {
+                    "type": "object",
+                    "optional": true,
+                    "description": "Extended properties for storing application-specific data. Max 300 properties totaling 32KB."
+                },
+                "attachments": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "File attachments for the event. Requires calendar to support attachments."
+                },
+                "source": {
+                    "type": "object",
+                    "optional": true,
+                    "description": "Source of the event, such as a web page or email message."
+                }
+            }
+        },
+        "update-event": {
+            "description": "Update an existing calendar event with recurring event modification scope support",
+            "arguments": {
+                "calendarId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the calendar (use 'primary' for the main calendar)"
+                },
+                "eventId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the event to update"
+                },
+                "summary": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Updated title of the event"
+                },
+                "description": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Updated description/notes"
+                },
+                "start": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Updated start time: '2024-01-01T10:00:00'"
+                },
+                "end": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Updated end time: '2024-01-01T11:00:00'"
+                },
+                "timeZone": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Updated timezone as IANA Time Zone Database name. If not provided, uses the calendar's default timezone."
+                },
+                "location": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Updated location"
+                },
+                "attendees": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Updated attendee list"
+                },
+                "colorId": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Updated color ID"
+                },
+                "reminders": {
+                    "type": "object",
+                    "optional": true,
+                    "description": "Reminder settings for the event"
+                },
+                "recurrence": {
+                    "type": "array",
+                    "optional": true,
+                    "description": "Updated recurrence rules"
+                },
+                "sendUpdates": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Whether to send update notifications"
+                },
+                "modificationScope": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Scope for recurring event modifications"
+                },
+                "originalStartTime": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Original start time in the ISO 8601 format '2024-01-01T10:00:00' (required when modificationScope is 'thisEventOnly')"
+                },
+                "futureStartDate": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Start date for future instances in the ISO 8601 format '2024-01-01T10:00:00' (required when modificationScope is 'thisAndFollowing')"
+                }
+            }
+        },
+        "delete-event": {
+            "description": "Delete a calendar event",
+            "arguments": {
+                "calendarId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the calendar (use 'primary' for the main calendar)"
+                },
+                "eventId": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "ID of the event to delete"
+                },
+                "sendUpdates": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Whether to send cancellation notifications"
+                }
+            }
+        },
+        "get-freebusy": {
+            "description": "Query free/busy information for calendars. Note: Time range is limited to a maximum of 3 months between timeMin and timeMax.",
+            "arguments": {
+                "calendars": {
+                    "type": "array",
+                    "optional": false,
+                    "description": "List of calendars and/or groups to query for free/busy information"
+                },
+                "timeMin": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "Start time boundary. Preferred: '2024-01-01T00:00:00' (uses timeZone parameter or calendar timezone). Also accepts: '2024-01-01T00:00:00Z' or '2024-01-01T00:00:00-08:00'."
+                },
+                "timeMax": {
+                    "type": "string",
+                    "optional": false,
+                    "description": "End time boundary. Preferred: '2024-01-01T23:59:59' (uses timeZone parameter or calendar timezone). Also accepts: '2024-01-01T23:59:59Z' or '2024-01-01T23:59:59-08:00'."
+                },
+                "timeZone": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Timezone for the query"
+                },
+                "groupExpansionMax": {
+                    "type": "integer",
+                    "optional": true,
+                    "description": "Maximum number of calendars to expand per group (max 100)"
+                },
+                "calendarExpansionMax": {
+                    "type": "integer",
+                    "optional": true,
+                    "description": "Maximum number of calendars to expand (max 50)"
+                }
+            }
+        },
+        "get-current_time": {
+            "description": "Get current system time and timezone information",
+            "arguments": {
+                "timeZone": {
+                    "type": "string",
+                    "optional": true,
+                    "description": "Optional IANA timezone (e.g., 'America/Los_Angeles', 'Europe/London', 'UTC'). If not provided, returns UTC time and system timezone for reference."
+                }
+            }
+        }
+    }
+}

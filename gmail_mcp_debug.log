@@ -1,0 +1,10 @@
+[ERR] [NODE] Starting tool: anonymous
+[ERR] [NODE] Credentials valid? true
+[ERR] [NODE] Tool execution completed successfully {
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"emailAddress\":\"rohit.verma@lagozon.com\",\"messagesTotal\":2647,\"threadsTotal\":2396,\"historyId\":\"307254\"}"
+    }
+  ]
+}

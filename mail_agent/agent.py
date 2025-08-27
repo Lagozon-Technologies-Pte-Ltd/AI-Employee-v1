@@ -1,3 +1,4 @@
+import os
 import json, sys, time, mcp,re
 import yaml
 import logging
@@ -10,10 +11,10 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message)s")
 
 client = OpenAI(api_key=openai_api_key)
-
+base_dir = os.path.dirname(__file__)
 # Load LLM prompts from YAML
 def load_prompts():
-    with open("prompts.yaml", "r") as f:
+    with open(os.path.join(base_dir, "prompts.yaml"), "r") as f:
         return yaml.safe_load(f)
 
 PROMPTS = load_prompts()
@@ -21,7 +22,7 @@ PROMPTS = load_prompts()
 # Load MCP config.json and tool schemas
 with open("config.json", "r") as f:
     CONFIG = json.load(f)
-with open("tools_schema.json", "r") as f:
+with open(os.path.join(base_dir, "tools_schema.json"), "r") as f:
     TOOL_FORMATS = json.load(f)
 
 

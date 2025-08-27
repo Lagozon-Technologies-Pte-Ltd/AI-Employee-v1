@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "node",
+      "args": [
+        "C:/Users/dell/Documents/GitHub/gmail-mcp/dist/index.js"
+      ]
+    },
+    "google-calendar": {
+      "command": "node",
+      "args": [
+        "C:/Users/dell/Documents/GitHub/google-calendar-mcp/build/index.js"
+      ],
+      "env": {
+        "GOOGLE_OAUTH_CREDENTIALS": "C:/Users/dell/Documents/GitHub/AI-Employee-v1/calendar_agent/gcp-oauth.keys.json"
+      }
+    }
+  }
+}
